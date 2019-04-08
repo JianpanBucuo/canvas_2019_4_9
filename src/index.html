@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>环境</title>
+    <script>
+(function(e,d){var f=e.documentElement,s=e.documentElement.style||e.body.style,b="orientationchange" in window?"orientationchange":"resize",a=/iPad|iPhone|iPod/.test(navigator.userAgent)&&!window.MSStream,c=function(){var g=f.clientWidth;if(!g){return}if(g>=750){g=750;s.width=750+"px"}else{s.width=g+"px"}f.style.fontSize=100*(g/750)+"px";f.dataset.width=g;f.dataset.percent=100*(g/750)};c();e.documentElement.classList.add("iosx"+d.devicePixelRatio);if(!e.addEventListener){return}d.addEventListener(b,c,false)})(document,window);
+    </script>
+    <script>
+    </script>
+    <title>Document</title>
+</head>
+<body>
+    <div id="study"></div>
+    <div class= 'section'>
+       <h2>1.首先 安装 webpack</h2>
+       <p>npm init </br>npm install webpack webpack-cli webpack-dev-server --save-dev</p>
+       <p>创建目录如下<img src='./images/1.png'></p>
+       <p>webpack4 中默认找 src/index.js 作为 默认入口，可以直接在终端中输入命令webpack 将当前的内容 进行一个简单的打包
+       <br>
+       这时，打包的时候终端中会出现 黄色的警告提示
+       <br>
+       mode 是 webpack 独有的，有两种打包环境，<br>
+       development: 开发环境<br>
+       production: 生产环境
+       <br>
+       打包的时候 输入 webpack --mode=development <br>
+       或者 webpack --mode=production (代码压缩过的，打包后小了很多) 就不会出现警告了。</p>
+        </div>
+
+ <div class='section'>
+<h2>使用配置文件， webpack.config.js</h2>
+<p>在 config 文件夹里 创建<span>webpack.config.js</span></p>
+<p> webpack.config.js分为6个模块</p>
+<p><span>mode</span> 打包模式</p>
+<p><span>entry</span> 入口文件的配置项</p>
+<p><span>output</span> 出口文件的配置项</p>
+<p><span>module</span> 模块：解读css，图片，es转换</p>
+<p><span>plugins</span> 插件：用于生产模板 和 各项插件</p>
+<p><span>devServer</span> 配置 webpack 开发服务功能</p>
+       <p><img src='./images/2.png'></p>
+<p>写好 配置模块后，在package.json里 创建命令：( "build":"webpack --config=config/webapck.config.js" )</p>
+        <p><img src='./images/3.png'></p>
+ </div>
+ <div class='section'>
+ <h2>3.开始配置 webpack-dev-server</h2>
+ <p>最简单的 devServer配置项只有4个  </p>
+<p><span>contentBase</span>设置基本目录结构</p>
+<p><span>host</span>服务器的IP地址，可以使用IP 也可以使用 localhost</p>
+<p><span>compress</span>服务器压缩是否开启</p>
+<p><span>port</span>配置服务器端口</p>
+<p><img src='./images/4.png'> </p>
+<p>之后要在 package.json里配置下
+<br>"server":"webpack-dev-server --config=config/webpack.js"</p>
+ </div>
+
+ <div class="section">
+ <h2>Loaders配置项</h2>
+ <p>loaders可以把 SASS文件转换成css， 也可以把 es6 es7 转换成 浏览器可以解析的 js</p>
+<p>
+<br>
+例子： 我们想要打包css 需要下载 <span>npm install style-loader css-loader --save-dev</span>
+然后到 webpack.dev.js进行配置
+<p><img src='./images/5.png'> </p>
+</p>
+ </div>
+
+ <div class="section">
+ <h2>plugins配置项</h2>
+ <p>
+ <span>uglifyjs-webpack-plugin</span><br>
+ 我们上线前都会对代码进行压缩，很多都是通过插件方式实现的。
+ <br> npm install <span>uglify</span> --save-dev <br>
+ 在 webpack.config.js里 进入
+  <br>const uglify = require('uglifyjs-webpack-plugin');， <br> 并在
+  plugins里 <br> new uglify()  
+ </p>
+ </div>
+
+ <div class="section">
+ <h2>打包 html</h2>
+ <p>
+ <span>html-webpack-plugin</span></p>
+ <p>现在，我们进行打包时，需要手动修改index.html 进行打包</p>
+ <p>为了解决这个问题我们要引入 html-webpack-plugin</p>
+ <p><span>npm install html-webpack-plugin --save-dev</span>这时，再到
+ webpack.config.js的plugins里进行配置</p>
+ <p><img src="./images/6.png"> </p>
+ <p><span>详见 webpack.dev.js plugins 里的 配置 </span> </p>
+ </div>
+ <div class='section'>
+ <h2>图片处理</h2>
+ <p>我们缺少 loader的解析，现在需要下载两个 解析图片的 loader，file-loader/url-loader</p>
+ <br>
+ <p><span>file-loader</span>
+ 解决引用路径的问题,拿 background样式用 url引入背景图来说，我们都知道，webpack最终会将各个模块打包成一个文件，
+ 因此我们样式中的url路径是相对入口 html文件的，而不是相对于原始css文件所在的目录。<br>
+ file-loader可以解析项目中的url 引入，根据我们的配置，将图片拷贝到相应的路径，修改打包后文件引入路径，并指向正确路径
+  </p>
+
+ <p><span>url-loader</span>
+ 如果图片较多，会发很多http请求，会降低页面性能，这个问题可以通过 <span>url-loader</span>解决。
+ url-loader会将引入的图片编码，生成 dataURL，相当于把图片数据翻译成一串字符，再把这串字符打包到文件中。
+ 最终只需要引入这个文件就能访问图片了。当然如果图片较大，编码会消耗性能，因此 url-loader提供了 一个limit参数，
+ 小于limit字节的文件会被转换成 dataURL,大于limit的还会使用 file-loader 进行复制。
+ </p>
+ <p><span>详见 webpack.dev.js plugins 里的 配置 </span> </p>
+
+ <div class="section">
+ <h2>mini-css-extract-plugin</h2>
+ <p>作用是将css文件从html文件中分离出来 </p>
+  <p><span>详见 webpack.dev.js plugins 里的 配置 </span> </p>
+ </div>
+ <div class='section'>
+ <h2>html-within-loader</h2>
+ <p>处理html中的图片</p>
+ <p><span>npm install html-withimg-loader --save-dev</span> </p>
+ <p>在 webpack.dev.js里配置loader</p>
+ </div>
+ <div class='section'>
+ <h2>自动处理Css3前缀</h2>
+ <p><span>postcss-loader autoprefixer</span></p>
+ <p>npm install --save-dev postcss-loader autoprefixer</p>
+ <p>在根目录下创建 <span>postcss.config.css</span>并在 处理css时，使用 postcss-loader</p>
+ </div>
+
+ <div class='section'>
+  <h2>兼容 es6</h2>
+  <p>npm install --save-dev <span>babel-loader babel-core</span></p>
+  <p>添加 loader</p>
+  <h2>创建 .babelrc配置文件</h2>
+  <p><span>bebel-preset-env</span> 虽然已经配置好了Babel，但并没有真正生效，在项目的根目录中
+  创建一个 <span>.babelrc</span>文件并启用一些插件 </p>
+  <p>npm install --save-dev<span> babel-preset-env </span>
+  { "presets": ["env"]} </p>
+ </div>
+
+ <div class='section'>
+ <h2>清理 /dist 文件夹</h2>
+ <p>npm install --save-dev <span>clean-webpack-plugin</span>
+ const CleanWebpackPlugin = require('clean-webpack-plugin');<br></p>
+ <p>+     new CleanWebpackPlugin(['dist']),</p>
+ </div>
+
+ <div class='section'>
+ <h2>source map</h2>
+ <p>将编译后的代码映射回原始源代码, 可以更容易的看到错误和警告</p>
+ </div>
+
+  <div class='section'>
+ <h2>配置</h2>
+ <p>开发环境和生产环境的构件目标差异很大</p>
+ <p><span>开发环境</span>中我们需要强大的， 具有实时重载或热模块替换能力的 source map 和 localhost server </p>
+ <p><span>生产环境</span>中，我们的目标则转向于关注更小的 bundle，更轻量的 source map</p>
+ </div>
+</body>
+</html>
+
+ 

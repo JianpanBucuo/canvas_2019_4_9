@@ -1,0 +1,38 @@
+body ,p{
+    background: #eee;
+    color:black;
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    margin:0;
+    padding:0;
+}
+h2 {
+    font-size: .32rem;
+}
+p {
+    font-size: .28rem;
+    padding-bottom: .1rem;
+}
+span {
+    color:red;
+    display: inline;
+}
+img {
+    width:100%;
+}
+#study {
+    text-align: center;
+    font-size: .32rem;
+}
+.section {
+    margin-bottom: .5rem;
+    border-bottom: 1px solid black;
+    opacity: .8;
+    background: #fff;
+}
+body{
+    /* background-image: url(../images/1.png); 
+ background-repeat: no-repeat;  */
+ transform: rotate(0deg);
+}
