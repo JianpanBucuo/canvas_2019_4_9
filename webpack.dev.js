@@ -10,8 +10,9 @@ module.exports = merge(common, {
         contentBase:path.resolve(__dirname,'../dist'),
         //服务器的IP地址，可以使用 Ip 也可以使用 localhost
         host:'localhost',
+        inline: true,
         //服务端压缩是否开启
-        compress: true,
+        // compress: true,
         //配置服务端号
         port: 8888,
         // hot: true

@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack --config=webpack.prod.js",
-    "server": "webpack-dev-server --config=webpack.dev.js --open",
+    "server": "webpack-dev-server --config=webpack.dev.js --hot--open",
     "analyz": "NODE_ENV=production npm_config_report=true npm run build"
   },
   "author": "",

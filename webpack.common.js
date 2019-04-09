@@ -23,8 +23,8 @@ const website = {
 module.exports = {
     // mode: 'development',
     entry: {
-        main: './src/js/main.js',
-        main2: './src/js/main2.js',
+        // main: './src/js/main.js',
+        // main2: './src/js/main2.js',
         canvas:'./src/js/canvas.js'
     },
     output: {
@@ -90,16 +90,16 @@ module.exports = {
         new cleanWebpackPlugin([
             'dist'
         ]),
-        new HtmlWebpackPlugin({
-            minify:{ //对 html文件进行压缩
-              removeAttributeQuotes:true // removeAttributeQuotes 是去除掉属性的双引号
-            },
-            hash: true, // 因开发中有缓存效果， 所以加入 hash,这样可以有效避免 js缓存
-            template:'./src/index.html', //是打包的html 模板路径和文件名称
-            chunks:['main','main2'], //主要用于多入口文件，会生成多个打包文件，chunks 可以根据入口选择你要使用的那些js文件
-            title:'webpack app', //生成 html的标题
-            filename:'index.html' //生成的html的文件名， 默认是 index.html
-        }),
+        // new HtmlWebpackPlugin({
+        //     minify:{ //对 html文件进行压缩
+        //       removeAttributeQuotes:true // removeAttributeQuotes 是去除掉属性的双引号
+        //     },
+        //     hash: true, // 因开发中有缓存效果， 所以加入 hash,这样可以有效避免 js缓存
+        //     template:'./src/index.html', //是打包的html 模板路径和文件名称
+        //     chunks:['main','main2'], //主要用于多入口文件，会生成多个打包文件，chunks 可以根据入口选择你要使用的那些js文件
+        //     title:'webpack app', //生成 html的标题
+        //     filename:'index.html' //生成的html的文件名， 默认是 index.html
+        // }),
         new HtmlWebpackPlugin({
             minify:{ //对 html文件进行压缩
               removeAttributeQuotes:true // removeAttributeQuotes 是去除掉属性的双引号
