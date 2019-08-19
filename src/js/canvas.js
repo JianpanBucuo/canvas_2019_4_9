@@ -1,7 +1,8 @@
 import canvas from '../css/canvas.css'
-import { arc } from './canvas/2_arc';
 import { shape } from './canvas/1_shape';
+import { arc } from './canvas/2_arc';
 import { colors } from './canvas/3_colors';
+import { line } from './canvas/4_line';
 function draw () {
     const canvas = document.getElementById('canvas');
  
@@ -10,6 +11,16 @@ function draw () {
     // shape(ctx);
     // arc(ctx);
     colors(ctx);
+    let offset = 0;
+    function march() {
+      offset++;
+      if (offset > 16) {
+        offset = 0;
+      }
+      line(ctx, offset);
+      setTimeout(march, 1000);
+    }
+    march();
 }
 window.onload = () => {
   draw();
